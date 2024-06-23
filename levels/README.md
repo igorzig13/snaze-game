@@ -1,0 +1,1 @@
+Contains input txt files for loading the initital state of the game.
