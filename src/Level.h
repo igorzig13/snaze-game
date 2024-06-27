@@ -3,6 +3,8 @@
 // Level represents "the board" of the game. It stores the state of entities like snake and food in a given moment.
 //
 
+#include <cstddef>
+
 #ifndef LEVEL_H
 #define LEVEL_H
 class Cell {

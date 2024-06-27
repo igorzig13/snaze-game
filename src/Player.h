@@ -3,6 +3,8 @@
 // Represents the AI engine of the game
 //
 
+#include <cstddef>
+
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Snake.h" // imports the Direction enum
