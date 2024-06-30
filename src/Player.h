@@ -2,11 +2,9 @@
 // Created by igorzig13 on 23/06/24.
 // Represents the AI engine of the game
 //
-
-#include <cstddef>
-
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include "Snake.h" // imports the Direction enum
 
 class Player {
