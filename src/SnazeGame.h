@@ -6,15 +6,22 @@
 #define SNAZEGAME_H
 
 #include <queue>
+#include <string>
+#include <fstream>
+
 #include "Level.h"
 #include "Player.h"
 #include "Snake.h"
+#include "../init/config.h"
 
 class SnazeGame {
-    size_t number_of_levels{ 1 };
-    std::queue<Level> levels;
-    Snake snake;
-    Player player;
+    size_t m_number_of_levels{ 1 };
+    size_t m_invalid_level_count { 0 };
+    size_t m_total_lives { 5 };
+    size_t m_food_goal { 10 };
+    std::queue<Level> m_levels;
+    Snake m_snake;
+    Player* m_player;
 
 public:
     void initialize_game();
@@ -22,11 +29,13 @@ public:
     void process_events();
     void render();
     void game_over();
+    static std::vector<std::string> read_file_info(const std::string& filename);
+    void load_config(Config& ini_config);
 
-private:
-    void set_levels();
-    void set_snake();
-    void set_player();
+    void about_levels_found() const;
+
+    void print_levels();
+
 };
 
 #endif //SNAZEGAME_H

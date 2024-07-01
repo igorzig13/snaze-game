@@ -6,7 +6,9 @@
 #define LEVEL_H
 
 #include <cstddef>
+#include <string>
 #include <vector>
+#include <sstream>
 
 enum class e_content {
     EMPTY = 0,
@@ -24,21 +26,32 @@ class Cell {
 
 public:
     /// Default constructor with arguments.
-    Cell(const size_t& line, const size_t& col, const e_content& content);
+    explicit Cell(const size_t& line = 0, const size_t& col = 0, const e_content& content = e_content::EMPTY);
+    void set_content(const e_content& content);
+    [[nodiscard]] e_content get_content() const;
 };
 
 class Level {
     size_t m_lines { 10 };
     size_t m_cols { 10 };
     std::vector<Cell> m_board;
-    Cell m_start_pos;
+    bool valid { true };
 
 public:
     /// Default constructor with arguments.
-    Level(const size_t& lines, const size_t& cols, const Cell& pos);
-
-private:
+    explicit Level(const size_t& lines = 10, const size_t& cols = 10);
+    void set_lines(const size_t& value);
+    [[nodiscard]] size_t get_lines() const;
+    void set_cols(const size_t& value);
+    [[nodiscard]] size_t get_cols() const;
     void fill_board();
+    Cell& get_cell(const size_t& r, const size_t& c);
+
+    void update_line_from_text(const std::string& text, const size_t& line, const size_t& max_cols);
+    void set_invalid();
+    void clear_board();
+    [[nodiscard]] bool is_valid() const;
+    std::string to_string();
 };
 
 #endif //LEVEL_H
