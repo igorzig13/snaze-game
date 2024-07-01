@@ -20,9 +20,12 @@ int main() {
               << std::endl;*/
 
     SnazeGame snaze_game;
+    snaze_game.initialize_game(conf);
 
-    snaze_game.load_config(conf);
-    snaze_game.about_levels_found();
-    snaze_game.print_levels();
+    while (not snaze_game.game_over()) {
+        snaze_game.process_events();
+        snaze_game.update();
+        snaze_game.render();
+    }
     return 0;
 }
