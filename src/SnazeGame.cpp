@@ -104,9 +104,8 @@ void SnazeGame::print_levels() {
  * 
  */
 void SnazeGame::read_enter_to_proceed() const {
-    // Limpa o buffer.
     std::cin.clear();
-    std::cin.sync();  // Sincroniza o buffer do fluxo de entrada..
+    std::cin.sync();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
