@@ -133,9 +133,11 @@ void SnazeGame::initialize_game(Config &conf) {
 /// TODO:
 void SnazeGame::process_events() {
     if(m_state_game == game_state_e::UNDEFINED) { /* Do nothing. */ }
-    else if(m_state_game == game_state_e::STARTING) { read_enter_to_proceed(); }
-    else if(m_state_game == game_state_e::RUNNING) {
+    else if (m_state_game == game_state_e::STARTING) { read_enter_to_proceed(); }
+    else if (m_state_game == game_state_e::RUNNING) {
         option = read_option_test();
+    } else if (m_state_game == game_state_e::GENERATING_FOOD) {
+        /// TODO:
     } else if (m_state_game == game_state_e::CALCULATING) {
         /// TODO:
     } else if (m_state_game == game_state_e::CRASHED) {
@@ -154,7 +156,9 @@ void SnazeGame::update() {
     }
     else if (m_state_game == game_state_e::STARTING) {
         m_state_game = game_state_e::RUNNING;
-    } else if (m_state_game == game_state_e::RUNNING) {
+    } else if (m_state_game == game_state_e::GENERATING_FOOD) {
+        /// TODO:
+    }  else if (m_state_game == game_state_e::RUNNING) {
         /// ==== TESTS ====
         switch (option)
         {
@@ -169,6 +173,9 @@ void SnazeGame::update() {
             break;
         case 4:
             m_state_game = game_state_e::LOSE;
+            break;
+        case 5:
+            m_state_game = game_state_e::GENERATING_FOOD;
             break;
         
         default:
@@ -205,6 +212,11 @@ void SnazeGame::render() {
         std::cout << "2 - CRASHED\n";
         std::cout << "3 - WON\n";
         std::cout << "4 - LOSE\n";
+        std::cout << "5 - GENERATING FOOD\n";
+    } else if (m_state_game == game_state_e::GENERATING_FOOD) {
+        std::system("clear");
+        std::cout << "GENERATING FOOD\n";
+        exit(EXIT_SUCCESS);
     } else if (m_state_game == game_state_e::CALCULATING) {
         /// TODO:
         std::system("clear");

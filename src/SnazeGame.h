@@ -19,13 +19,14 @@ class SnazeGame {
     //=== Struct
     //!< The game states.
     enum class game_state_e : short {
-        UNDEFINED = 0,  //!< Only reading input file.
-        STARTING,       //!< Beginning the game.
-        CALCULATING,    //!< Calculating the path to food.
-        RUNNING,        //!< Showing the snake animation.
-        CRASHED,        //!< Error if the snake hits itself or the wall.
-        WON,            //!< If the player wins.
-        LOSE            //!< If the player lose.
+        UNDEFINED = 0,   //!< Only reading input file.
+        STARTING,        //!< Beginning the game.
+        GENERATING_FOOD, //!< Generating one food in board.
+        CALCULATING,     //!< Calculating the path to food.
+        RUNNING,         //!< Showing the snake animation.
+        CRASHED,         //!< Error if the snake hits itself or the wall.
+        WON,             //!< If the player wins.
+        LOSE             //!< If the player lose.
     };
 
     //=== Game related members.
