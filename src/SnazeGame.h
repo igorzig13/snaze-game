@@ -8,7 +8,8 @@
 #include <queue>
 #include <string>
 #include <fstream>
-#include <limits>   
+#include <limits>
+#include <list>
 
 #include "Level.h"
 #include "Player.h"
@@ -34,9 +35,9 @@ class SnazeGame {
     size_t m_invalid_level_count { 0 };                      //!< TODO: Add comments.
     size_t m_total_lives { 5 };                              //!< TODO: Add comments.
     size_t m_food_goal { 10 };                               //!< TODO: Add comments.
-    std::queue<Level> m_levels;                              //!< TODO: Add comments.
+    std::list<Level> m_levels;                              //!< TODO: Add comments.
     Snake m_snake;                                           //!< TODO: Add comments.
-    Player* m_player;                                        //!< TODO: Add comments.
+    Player* m_player = new TestPlayer;                       //!< TODO: Add comments.
     game_state_e m_state_game { game_state_e::UNDEFINED };   //!< Set the current state game.
     Config m_conf;                                           //!< Set the config game.
 

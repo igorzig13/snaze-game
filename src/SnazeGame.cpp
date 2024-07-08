@@ -38,7 +38,7 @@ void SnazeGame::load_config(Config &ini_config) {
         if (std::isdigit(line[0])) {
             if (level_registered == true) {
                 if (aux.is_valid())
-                    m_levels.emplace(aux);
+                    m_levels.emplace_back(aux);
                 else
                     m_invalid_level_count++;
                 current_line = 0;
@@ -57,7 +57,7 @@ void SnazeGame::load_config(Config &ini_config) {
         current_line++;
     }
     if (aux.is_valid())
-        m_levels.emplace(aux);
+        m_levels.emplace_back(aux);
     else
         m_invalid_level_count++;
 
@@ -91,9 +91,8 @@ void SnazeGame::print_levels() {
     TestPlayer test_player;
     m_player = &test_player;
     std::cout << std::endl << "[LEVELS]" << std::endl << std::endl;
-    while (!m_levels.empty()) {
-        Level current_level = m_levels.front();
-        m_levels.pop();
+
+    for (auto current_level : m_levels) {
         std::cout << current_level.to_string() << '\n';
     }
 }
@@ -157,7 +156,8 @@ void SnazeGame::update() {
     else if (m_state_game == game_state_e::STARTING) {
         m_state_game = game_state_e::RUNNING;
     } else if (m_state_game == game_state_e::GENERATING_FOOD) {
-        /// TODO:
+        Level& current_level = m_levels.front();
+        current_level.generate_food();
     }  else if (m_state_game == game_state_e::RUNNING) {
         /// ==== TESTS ====
         switch (option)
@@ -212,10 +212,14 @@ void SnazeGame::render() {
         std::cout << "2 - CRASHED\n";
         std::cout << "3 - WON\n";
         std::cout << "4 - LOSE\n";
-        std::cout << "5 - GENERATING FOOD\n";
+        std::cout << "5 - GENERATE FOOD\n";
     } else if (m_state_game == game_state_e::GENERATING_FOOD) {
         std::system("clear");
-        std::cout << "GENERATING FOOD\n";
+        std::cout << "GENERATING FOOD AT THE FIRST LEVEL FOUND: \n";
+        update(); /// SHOULD BE CHANGED
+        Level& current_level = m_levels.front();
+        std::cout << current_level.to_string() << '\n';
+        std::cout << "DONE! \n";
         exit(EXIT_SUCCESS);
     } else if (m_state_game == game_state_e::CALCULATING) {
         /// TODO:

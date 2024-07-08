@@ -16,6 +16,14 @@ e_content Cell::get_content() const {
     return this->content;
 }
 
+size_t Cell::get_line() const {
+    return this->line;
+}
+
+size_t Cell::get_col() const {
+    return this->column;
+}
+
 /// Level default constructor;
 Level::Level(const size_t &lines, const size_t &cols)
 : m_lines(lines), m_cols(cols){}
@@ -93,8 +101,11 @@ std::string Level::to_string() {
             if (get_cell(i, j).get_content() == e_content::WALL) {
                 oss << "#";
             } else if (get_cell(i, j).get_content() == e_content::EMPTY ||
-                get_cell(i, j).get_content() == e_content::INVISIBLE_WALL)
+                get_cell(i, j).get_content() == e_content::INVISIBLE_WALL) {
                 oss << " ";
+            } else if (get_cell(i, j).get_content() == e_content::FOOD) {
+                oss << "F";
+            }
             else {
                 oss << "S";
             }
@@ -102,6 +113,25 @@ std::string Level::to_string() {
         oss << "\n";
     }
     return oss.str();
+}
+
+void Level::generate_food() {
+    std::vector<Cell> empty_cells;
+
+    for (auto& cell : this->m_board) {
+        if (cell.get_content() == e_content::EMPTY) {
+            empty_cells.push_back(cell);
+        }
+    }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, empty_cells.size() - 1);
+    const size_t random_index = dis(gen);
+
+    const size_t line_to_update = empty_cells[random_index].get_line();
+    const size_t col_to_update = empty_cells[random_index].get_line();
+    this->get_cell(line_to_update, col_to_update).set_content(e_content::FOOD);
 }
 
 
